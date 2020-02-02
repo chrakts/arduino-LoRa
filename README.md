@@ -1,6 +1,5 @@
-# Arduino LoRa
-
-[![Build Status](https://travis-ci.org/sandeepmistry/arduino-LoRa.svg?branch=master)](https://travis-ci.org/sandeepmistry/arduino-LoRa)
+# ATxMega LoRa
+This fork will only be useable with the ATxMega-µPs and will not use the Arduino Framework.
 
 An [Arduino](https://arduino.cc/) library for sending and receiving data using [LoRa](https://www.lora-alliance.org/) radios.
 
@@ -35,24 +34,6 @@ An [Arduino](https://arduino.cc/) library for sending and receiving data using [
  * If your Arduino board operates at 5V, like the Arduino Uno, Leonardo or Mega, you will need to use a level converter for the wiring to the Semtech SX127x module. Most Semtech SX127x breakout boards do not have logic level converters built-in.
 
 ## Installation
-
-### Using the Arduino IDE Library Manager
-
-1. Choose `Sketch` -> `Include Library` -> `Manage Libraries...`
-2. Type `LoRa` into the search box.
-3. Click the row to select the library.
-4. Click the `Install` button to install the library.
-
-### Using Git
-
-```sh
-cd ~/Documents/Arduino/libraries/
-git clone https://github.com/sandeepmistry/arduino-LoRa LoRa
-```
-
-## API
-
-See [API.md](API.md).
 
 ## Examples
 
