@@ -1,8 +1,6 @@
 # ATxMega LoRa
 This fork will only be useable with the ATxMega-µPs and will not use the Arduino Framework.
 
-An [Arduino](https://arduino.cc/) library for sending and receiving data using [LoRa](https://www.lora-alliance.org/) radios.
-
 ## Compatible Hardware
 
  * [Semtech SX1276/77/78/79](http://www.semtech.com/apps/product.php?pn=SX1276) based boards including:
