@@ -4,9 +4,16 @@
 #ifndef LORA_H
 #define LORA_H
 
-#include <Arduino.h>
-#include <SPI.h>
+#include "../../communication/Communication.h"
+#include "SPI.h"
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#include <stddef.h>
+#include "loraHardware.h"
+#include "../../ArduinoClone/Stream.h"
 
+
+/* -> verschoben nach loraHardware.h
 #if defined(ARDUINO_SAMD_MKRWAN1300)
 #define LORA_DEFAULT_SPI           SPI1
 #define LORA_DEFAULT_SPI_FREQUENCY 200000
@@ -21,7 +28,7 @@
 #define LORA_DEFAULT_DIO0_PIN      LORA_IRQ
 #else
 #define LORA_DEFAULT_SPI           SPI
-#define LORA_DEFAULT_SPI_FREQUENCY 8E6 
+#define LORA_DEFAULT_SPI_FREQUENCY 8E6
 #define LORA_DEFAULT_SS_PIN        10
 #define LORA_DEFAULT_RESET_PIN     9
 #define LORA_DEFAULT_DIO0_PIN      2
@@ -29,10 +36,13 @@
 
 #define PA_OUTPUT_RFO_PIN          0
 #define PA_OUTPUT_PA_BOOST_PIN     1
+*/
+
 
 class LoRaClass : public Stream {
+
 public:
-  LoRaClass();
+  LoRaClass(SPI *spi);
 
   int begin(long frequency);
   void end();
@@ -75,31 +85,33 @@ public:
   void disableCrc();
   void enableInvertIQ();
   void disableInvertIQ();
-  
+
   void setOCP(uint8_t mA); // Over Current Protection control
 
   // deprecated
   void crc() { enableCrc(); }
   void noCrc() { disableCrc(); }
 
-  byte random();
+  uint8_t random();   //byte random();
 
   void setPins(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN, int dio0 = LORA_DEFAULT_DIO0_PIN);
-  void setSPI(SPIClass& spi);
+  //void setSPI(SPIClass& spi);
+  void setSPI(SPI& spi);
   void setSPIFrequency(uint32_t frequency);
 
-  void dumpRegisters(Stream& out);
+  void dumpRegisters(Communication& out);
+  void handleDio0Rise();
 
 private:
   void explicitHeaderMode();
   void implicitHeaderMode();
 
-  void handleDio0Rise();
+//  void handleDio0Rise();
   bool isTransmitting();
 
   int getSpreadingFactor();
   long getSignalBandwidth();
-
+  int8_t getTemperature();
   void setLdoFlag();
 
   uint8_t readRegister(uint8_t address);
@@ -109,8 +121,10 @@ private:
   static void onDio0Rise();
 
 private:
-  SPISettings _spiSettings;
-  SPIClass* _spi;
+
+  //SPISettings _spiSettings;
+  //SPIClass* _spi;
+  SPI* _spi;
   int _ss;
   int _reset;
   int _dio0;
