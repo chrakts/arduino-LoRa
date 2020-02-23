@@ -10,7 +10,7 @@
 #include <util/delay.h>
 #include <stddef.h>
 #include "loraHardware.h"
-#include "../../ArduinoClone/Stream.h"
+#include "../../Arduino4AtXmega/Stream.h"
 
 
 /* -> verschoben nach loraHardware.h
