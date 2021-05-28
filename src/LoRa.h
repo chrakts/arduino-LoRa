@@ -10,7 +10,7 @@
 #include <util/delay.h>
 #include <stddef.h>
 #include "loraHardware.h"
-#include "../../Arduino4AtXmega/Stream.h"
+//#include "../../Arduino4AtXmega/Stream.h"
 
 
 /* -> verschoben nach loraHardware.h
@@ -39,7 +39,8 @@
 */
 
 
-class LoRaClass : public Stream {
+//class LoRaClass : public Stream {
+class LoRaClass {
 
 public:
   LoRaClass(SPI *spi);
