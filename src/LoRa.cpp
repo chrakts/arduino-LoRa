@@ -83,55 +83,18 @@ LoRaClass::LoRaClass(SPI *spi) :
 
 int LoRaClass::begin(long frequency)
 {
-#if defined(ARDUINO_SAMD_MKRWAN1300) || defined(ARDUINO_SAMD_MKRWAN1310)
-  pinMode(LORA_IRQ_DUMB, OUTPUT);
-  digitalWrite(LORA_IRQ_DUMB, LOW);
-
-  // Hardware reset
-  pinMode(LORA_BOOT0, OUTPUT);
-  digitalWrite(LORA_BOOT0, LOW);
-
-  pinMode(LORA_RESET, OUTPUT);
-  digitalWrite(LORA_RESET, HIGH);
-  delay(200);
-  digitalWrite(LORA_RESET, LOW);
-  delay(200);
-  digitalWrite(LORA_RESET, HIGH);
-  delay(50);
-#endif
-
-  // setup pins
-  //pinMode(_ss, OUTPUT);
-  //LORA_PORT.DIRSET = LORA_SS_PIN;
-  // set SS high
-  //digitalWrite(_ss, HIGH);
-  //LORA_PORT.OUTSET = LORA_SS_PIN;
-
-//  if (_reset != -1) {
-#ifdef LORA_RESET_PIN
-    // pinMode(_reset, OUTPUT);
-    LORA_PORT.DIRSET = LORA_RESET_PIN;
-    // perform reset
-    // digitalWrite(_reset, LOW);
-    LORA_PORT.OUTCLR = LORA_RESET_PIN;
-    _delay_ms(10);
-    // digitalWrite(_reset, HIGH);
-    LORA_PORT.OUTSET = LORA_RESET_PIN;
-    _delay_ms(10);
-//  }
-#endif // LORA_RESET_PIN
-  // start SPI
-
   LORA_PORT.DIRSET = LORA_RESET_PIN | LORA_SS_PIN;
   LORA_PORT.OUTSET = LORA_RESET_PIN | LORA_SS_PIN;
 
   LORA_PORT.OUTCLR = LORA_RESET_PIN;
   _delay_ms(10);
   LORA_PORT.OUTSET = LORA_RESET_PIN;
+  _delay_ms(2);
 
   // check version
   uint8_t version = readRegister(REG_VERSION);
-  if (version != 0x12) {
+  if (version != 0x12)
+  {
     return 0;
   }
 
