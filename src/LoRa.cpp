@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include <LoRa.h>
-#include "myConstants.h"
+//#include "myConstants.h"
 
 // registers // Hope Datenblatt Tabelle 85 ist für LORA-Mode falsch -> Detailtabelle verwenden, ab Seite 102
 #define REG_FIFO                 0x00
@@ -435,7 +435,8 @@ void LoRaClass::sleep()
 
 void LoRaClass::setTxPower(int level, int outputPin)
 {
-  if (PA_OUTPUT_RFO_PIN == outputPin) {
+  if (PA_OUTPUT_RFO_PIN == outputPin)
+  {
     // RFO
     if (level < 0) {
       level = 0;
@@ -444,10 +445,14 @@ void LoRaClass::setTxPower(int level, int outputPin)
     }
 
     writeRegister(REG_PA_CONFIG, 0x70 | level);
-  } else {
+  }
+  else
+  {
     // PA BOOST
-    if (level > 17) {
-      if (level > 20) {
+    if (level > 17)
+    {
+      if (level > 20)
+      {
         level = 20;
       }
 
@@ -457,15 +462,17 @@ void LoRaClass::setTxPower(int level, int outputPin)
       // High Power +20 dBm Operation (Semtech SX1276/77/78/79 5.4.3.)
       writeRegister(REG_PA_DAC, 0x87);
       setOCP(140);
-    } else {
-      if (level < 2) {
+    }
+    else
+    {
+      if (level < 2)
+      {
         level = 2;
       }
       //Default value PA_HF/LF or +17dBm
       writeRegister(REG_PA_DAC, 0x84);
       setOCP(100);
     }
-
     writeRegister(REG_PA_CONFIG, PA_BOOST | (level - 2));
   }
 }
