@@ -339,7 +339,7 @@ void LoRaClass::onReceive(void(*callback)(int))
     LORA_PORT.INTCTRL  = LORA_INT_LEVEL_BM ; // Low-Level interrupt 0 for PORTD
     LORA_PORT.LORA_INTMASK = LORA_DIO0_BM;
     PORTCFG.MPCMASK = LORA_DIO0_BM;         // selektiert für die nächste Zeile den richtigen Pin
-    LORA_PORT.PIN0CTRL = PORT_ISC_RISING_gc | PORT_OPC_PULLUP_gc ;
+    LORA_PORT.PIN2CTRL = PORT_ISC_RISING_gc | PORT_OPC_PULLUP_gc ; // war PIN0CTRL !!!!!!!!!!!!!!!!!!!!1
 
 //    attachInterrupt(digitalPinToInterrupt(_dio0), LoRaClass::onDio0Rise, RISING);
   }
